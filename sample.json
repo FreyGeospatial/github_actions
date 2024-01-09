@@ -1,4 +1,4 @@
 {
-    "username": #({secrets.username}),
-    "password": #({secrets.password})
+    "username": #(username_to_be_inserted),
+    "password": #(password_to_be_inserted)
 }

@@ -23,6 +23,9 @@ jobs:
           files: '["sample.json"]'
           tokenPrefix: '#('
           tokenSuffix: ')#'
+        env:
+          username_to_be_inserted: ${{ secrets.username }}
+          password_to_be_inserted: ${{ secrets.password }}
 
       - name: github script
         run: cat sample.json
