@@ -1,4 +1,4 @@
 {
-    "username": #(secrets.username),
-    "password": #(secrets.password)
+    "username": #({secrets.username}),
+    "password": #({secrets.password})
 }
