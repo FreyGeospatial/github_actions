@@ -1,0 +1,29 @@
+name: test replace token
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: 'ubuntu-latest'
+    defaults:
+      run:
+        shell: bash
+        working-directory: .
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: replace tokens
+        uses: cschleiden/replace-tokens@v1
+        with:
+          files: '["sample.json"]'
+          tokenPrefix: '#('
+          tokenSuffix: ')#'
+
+      - name: github script
+        run: cat sample.json
+      
