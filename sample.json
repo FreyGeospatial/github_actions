@@ -1,4 +1,4 @@
 {
-    "username": #(username_to_be_inserted),
-    "password": #(password_to_be_inserted)
+    "username": #(username_to_be_inserted)#,
+    "password": #(password_to_be_inserted)#
 }

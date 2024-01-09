@@ -24,8 +24,8 @@ jobs:
           tokenPrefix: '#('
           tokenSuffix: ')#'
         env:
-          username_to_be_inserted: ${{ secrets.username }}
-          password_to_be_inserted: ${{ secrets.password }}
+          username_to_be_inserted: ${{ secrets.USERNAME }}
+          password_to_be_inserted: ${{ secrets.PASSWORD }}
 
       - name: github script
         run: cat sample.json
