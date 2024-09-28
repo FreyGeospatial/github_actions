@@ -8,10 +8,8 @@ on:
 
 jobs:
   deploy:
-    strategy:
-      matrix:
-        environment: { inputs.environment }
     runs-on: 'ubuntu-latest'
+    environment: ${{ inputs.environment }}
     defaults:
       run:
         shell: bash
