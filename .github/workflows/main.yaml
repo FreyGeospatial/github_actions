@@ -1,4 +1,4 @@
-name: test replace token
+name: My CICD Pipeline
 
 on:
   workflow_dispatch:
