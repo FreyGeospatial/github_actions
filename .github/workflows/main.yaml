@@ -8,7 +8,7 @@ on:
 
 jobs:
   deploy:
-    uses: full_workflow.yaml
+    uses: ./.github/workflows/full_workflow.yaml
     strategy:
       max-parallel: 1
       matrix:
