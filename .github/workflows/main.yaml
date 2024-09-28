@@ -6,35 +6,14 @@ on:
     branches:
       - main
 
-
 jobs:
   deploy:
+    uses: full_workflow.yaml
     strategy:
+      max-parallel: 1
       matrix:
         environment: [dev, prod]
-    runs-on: 'ubuntu-latest'
-    defaults:
-      run:
-        shell: bash
-        working-directory: .
+    with:
+      environment: ${{ matrix.environment }}
 
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
 
-      - name: Blah123
-        run: echo freygeospatial
-
-      - name: replace tokens
-        uses: cschleiden/replace-tokens@v1
-        with:
-          files: '["sample.json"]'
-          tokenPrefix: '#('
-          tokenSuffix: ')#'
-        env:
-          username_to_be_inserted: ${{ secrets.USERNAME }}
-          password_to_be_inserted: ${{ secrets.PASSWORD }}
-
-      - name: github script
-        run: cat sample.json
-      
