@@ -11,7 +11,7 @@ jobs:
   deploy:
     strategy:
       matrix:
-        environment: ["dev", "prod"]
+        environment: [dev, prod]
     runs-on: 'ubuntu-latest'
     defaults:
       run:
