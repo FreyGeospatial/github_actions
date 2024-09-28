@@ -1,0 +1,37 @@
+on:
+  workflow_call:
+    inputs:
+      environment:
+        type: string
+        required: true
+
+
+jobs:
+  deploy:
+    runs-on: 'ubuntu-latest'
+    environment: ${{ inputs.environment }}
+    defaults:
+      run:
+        shell: bash
+        working-directory: .
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Blah123
+        run: echo freygeospatial
+
+      - name: replace tokens
+        uses: cschleiden/replace-tokens@v1
+        with:
+          files: '["sample.json"]'
+          tokenPrefix: '#('
+          tokenSuffix: ')#'
+        env:
+          username_to_be_inserted: ${{ secrets.USERNAME }}
+          password_to_be_inserted: ${{ secrets.PASSWORD }}
+
+      - name: github script
+        run: cat sample.json
+      
