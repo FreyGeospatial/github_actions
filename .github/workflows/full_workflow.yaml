@@ -47,12 +47,12 @@ jobs:
       # see https://black.readthedocs.io/en/stable/usage_and_configuration/the_basics.html
       # for full docus on available args
 
+      # will check all *python* files specifically
       - name: Lint
         id: lint
         uses: psf/black@stable
         with:
-          options: "--check --diff --color"
-          src: "./src/no_issues.py"
+          args: "./ --include ./*.py --check --diff --color"
       
       - name: show exit status of last command
         run: echo ${?}
