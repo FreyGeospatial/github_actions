@@ -47,7 +47,6 @@ jobs:
       # see https://black.readthedocs.io/en/stable/usage_and_configuration/the_basics.html
       # for full docus on available args
 
-      # will check all *python* files
       - name: Lint
         id: lint
         uses: psf/black@stable
