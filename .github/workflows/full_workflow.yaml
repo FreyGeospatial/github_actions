@@ -52,7 +52,7 @@ jobs:
         id: lint
         uses: psf/black@stable
         with:
-          args: "./ --include ./*.py --check --diff --color"
+          args: "./ --include ./*.py --check --diff --color --quiet"
       
       - name: show exit status of last command
         run: echo ${?}
