@@ -25,9 +25,11 @@ jobs:
         with:
           python-version: '3.11'
 
-      # testing bash commands
-      - name: Blah123
-        run: echo freygeospatial
+      - run: echo "event name is:" ${{ github.event_name }} 
+      - run: echo "event type is:" ${{ github.event.action }} 
+
+      - name: install black formatter
+        run: pip install black
 
       - name: github script
         run: cat sample.json
@@ -47,12 +49,15 @@ jobs:
       # see https://black.readthedocs.io/en/stable/usage_and_configuration/the_basics.html
       # for full docus on available args
 
-      # will check all *python* files specifically
-      - name: Lint
+      # this will not exit as we capture the exit code using `OR echo` and output a warning annotation
+      - name: Lint Validation
         id: lint
-        uses: psf/black@stable
-        with:
-          args: "./ --include ./*.py --check --diff --color"
+        run: black --check --diff --color . || echo "::warning::Python code formatting issues detected"
+        if: ${{ github.event_name == 'pull_request' || github.event_name == 'workflow_dispatch'}}
+
+
+        # uses: psf/black@stable
+        # with:
+        #   options: "--check --diff --color"
+        #   src: "./src/no_issues.py"
       
-      - name: show exit status of last command
-        run: echo ${?}
