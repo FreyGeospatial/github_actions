@@ -52,7 +52,7 @@ jobs:
         id: lint
         uses: psf/black@stable
         with:
-          options: --check --diff --color"
+          options: "--check --diff --color"
           src: "./src/no_issues.py"
       
       - name: show exit status of last command
