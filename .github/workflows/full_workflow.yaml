@@ -19,9 +19,20 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
+      # required to run python on ghub actions
+      - name: setup python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      # testing bash commands
       - name: Blah123
         run: echo freygeospatial
 
+      - name: github script
+        run: cat sample.json
+
+      # passing in variables/secrets from the GHub secret store
       - name: replace tokens
         uses: cschleiden/replace-tokens@v1
         with:
@@ -31,7 +42,17 @@ jobs:
         env:
           username_to_be_inserted: ${{ secrets.USERNAME }}
           password_to_be_inserted: ${{ secrets.PASSWORD }}
-
-      - name: github script
-        run: cat sample.json
       
+      # check for linting issues, using black formatter
+      # see https://black.readthedocs.io/en/stable/usage_and_configuration/the_basics.html
+      # for full docus on available args
+
+      - name: Lint
+        id: lint
+        uses: psf/black@stable
+        with:
+          options: "--check --diff --color"
+          src: "./src/no_issues.py"
+      
+      - name: show exit status of last command
+        run: echo ${?}
