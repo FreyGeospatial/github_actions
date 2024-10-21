@@ -18,6 +18,8 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Adding fetch-depth:0 is a good idea in order to fetch the all history (therefore all the branches)
 
       # required to run python on ghub actions
       - name: setup python
@@ -31,7 +33,14 @@ jobs:
       - name: install black formatter
         run: pip install black
 
-      - name: github script
+      - name: Save modified files
+        id: get_modified_files
+        run: echo MODIFIED_FILES=$(./.github/scripts/modified_files.sh) >> $GITHUB_ENV
+      
+      - name: return modified files
+        run: echo $(./.github/scripts/modified_files.sh)
+
+      - name: github script (before replace token)
         run: cat sample.json
 
       # passing in variables/secrets from the GHub secret store
@@ -45,19 +54,18 @@ jobs:
           username_to_be_inserted: ${{ secrets.USERNAME }}
           password_to_be_inserted: ${{ secrets.PASSWORD }}
       
-      # check for linting issues, using black formatter
-      # see https://black.readthedocs.io/en/stable/usage_and_configuration/the_basics.html
-      # for full docus on available args
+      - name: github script (after replace token)
+        run: cat sample.json
 
-      # this will not exit as we capture the exit code using `OR echo` and output a warning annotation
-      - name: Lint Validation
-        id: lint
-        run: black --check --diff --color . || echo "::warning::Python code formatting issues detected"
+      - name: List branches
+        run: git branch -a
+
+      - name: Lint modified files with Black
+        run: |
+          if [ -z "$MODIFIED_FILES" ]; then
+            echo "No Python files modified."
+          else
+            black --check --diff --color $MODIFIED_FILES || echo "::warning::Python code formatting issues detected"
+          fi
         if: ${{ github.event_name == 'pull_request' || github.event_name == 'workflow_dispatch'}}
 
-
-        # uses: psf/black@stable
-        # with:
-        #   options: "--check --diff --color"
-        #   src: "./src/no_issues.py"
-      
