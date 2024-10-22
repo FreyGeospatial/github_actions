@@ -10,11 +10,7 @@
           # Get the current Git branch name
           current_branch=$(git rev-parse --abbrev-ref HEAD)
 
-
-          # Next, we initialize the stringified array based on the current branch.
-          # GitHub actions cannot read well arrays from environmental/output variables
-          # so we need to stringify them before loading as JSON.
-          # jq package seems to be the easiest way to do so.
+          # jq package seems to be the easiest way to manipulate lists and json.
 
           # jq comes standard with GitHub Actions. For use on
           # MacOS for local testing, use `brew jq`.

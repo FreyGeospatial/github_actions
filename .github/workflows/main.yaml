@@ -17,13 +17,15 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
+
+      # for more details, see shell script
       - name: "save environments to run"
         id: environment_array
-        run: |
-          # for more information, please see script for comments
-          bash my_array=$(./.github/scripts/determine_environment.sh) >> $GITHUB_OUTPUT
+        run: echo my_array=$(./.github/scripts/determine_environment.sh) >> $GITHUB_OUTPUT
+
       - name: "return environments"
         run: echo ${{ steps.environment_array.outputs.my_array }}
+
     outputs:
       my_array: ${{ steps.environment_array.outputs.my_array }}
 

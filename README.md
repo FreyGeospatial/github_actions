@@ -15,5 +15,6 @@ Installation docs can be found here: https://nektosact.com/installation/, but he
 
 ### Running
 1. Make sure docker is up and running
-1. run this for silicon MacOS: `--container-architecture linux/amd64`
+1. run this for silicon MacOS: `act <github_event_name> --container-architecture linux/amd64`
     - you may need a different command line argument depending on chip architecture being used locally, and the OS being used.
+    - if on Mac you run into a permission denied error, use `sudo chmod 755 './.github/scripts/<file>'`
