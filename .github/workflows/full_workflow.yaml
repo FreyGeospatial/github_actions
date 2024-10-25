@@ -70,5 +70,4 @@ jobs:
           else
             black --check --diff --color $MODIFIED_FILES || echo "::warning::Python code formatting issues detected"
           fi
-        if: ${{ github.event_name == 'pull_request' || github.event_name == 'workflow_dispatch'}}
 
