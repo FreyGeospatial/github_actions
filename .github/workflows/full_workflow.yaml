@@ -30,9 +30,6 @@ jobs:
       - run: echo "event name is:" ${{ github.event_name }} 
       - run: echo "event type is:" ${{ github.event.action }} 
 
-      - run: for_merge_trigger='~1'
-        if: ${{ github.event_name == 'push'}} 
-
       - name: install black formatter
         run: pip install black
 
@@ -68,6 +65,6 @@ jobs:
           if [ -z "$MODIFIED_FILES" ]; then
             echo "No Python files modified."
           else
-            black --check --diff --color $MODIFIED_FILES || echo "::warning::Python code formatting issues detected"
+            black --check --diff --color $MODIFIED_FILES
           fi
 
